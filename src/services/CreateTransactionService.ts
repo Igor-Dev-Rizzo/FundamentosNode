@@ -15,10 +15,6 @@ class CreateTransactionService {
   }
 
   public execute({title, value, type}: Request): Transaction {
-    if(["income", "outcome"].includes(type)){
-      throw new Error("Não é uma transação válida")
-    }
-
     const {total } = this.transactionsRepository.getBalance()
     if (type === "outcome" && total < value){
       throw new Error('Você não tem saldo sufuciente para retirada.')
